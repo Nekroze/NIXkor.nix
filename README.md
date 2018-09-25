@@ -13,16 +13,20 @@ This git repository is designed to be imported in the [Nix][3] language and call
 let
   NIXkor = pkgs.fetchFromGitHub {
     owner = "Nekroze";
-	repo = "NIXkor.nix";
-	# use whatever is the latest commit hash
-	rev = "7f7bdfc1c2131fe55094ff288069d5936d28c895";
-	# update this hash when builds fail when updating rev.
+    repo = "NIXkor.nix";
+    # use whatever is the latest commit hash
+    rev = "7f7bdfc1c2131fe55094ff288069d5936d28c895";
+    # update this hash when builds fail when updating rev.
     sha256 = "0jp7qq02ly9wiqbgh5yamwd31ah1bbybida7mn1g6qpdijajf247";
   };
 in {
   imports = [
     ./hardware-configuration.nix
-	(NIXkor {})
+    (NIXkor {})
   ];
 }
 ```
+
+[1]: https://github.com/Nekroze/dotfiles
+[2]: https://nixos.org
+[3]: https://nixos.org/nix
