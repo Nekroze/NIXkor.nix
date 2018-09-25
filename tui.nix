@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
+  pkgInstalled = pkg: (count (x: x == pkg) config.environment.systemPackages) == 1;
 
   aliases = {
     la = "exa -la --git -header";
@@ -27,7 +28,16 @@ in {
     shellAliases = aliases;
     enableCompletion = true;
     enableAutosuggestions = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      highlighters = [
+        "main"
+        "brackets"
+        "cursor"
+        "root"
+      ];
+    };
+
     ohMyZsh = {
       enable = true;
       theme = mkDefault "agnoster";
@@ -36,18 +46,22 @@ in {
         "dotenv"
         "fzf" # pkgs.fzf
         "gitfast" # pkgs.git
-        "golang" # pkgs.go
         "gpg-agent" # pkgs.gnupg
         "history-substring-search"
         "mosh" # pkgs.mosh
-        "nmap" # pkgs.nmap
         "per-directory-history"
         "safe-paste"
         "systemd"
         "vi-like"
         "vi-mode"
-      ] ++ optionals config.virtualisation.docker.enable ["docker" "docker_compose"];
+        "common-aliases"
+      ]
+      ++ optional (pkgInstalled pkgs.httpie) "httpie"
+      ++ optional (pkgInstalled pkgs.go) "golang"
+      ++ optional (pkgInstalled pkgs.go) "nmap"
+      ++ optionals config.virtualisation.docker.enable ["docker" "docker_compose"];
     };
+
     interactiveShellInit = ''
       source ${pkgs.autojump}/share/autojump/autojump.zsh
       [ "$IN_NIX_SHELL" ] && export PS1="nix-shell@$PS1"
@@ -59,7 +73,6 @@ in {
     mosh
     libnotify
     nmap
-    go
     gnupg
     fzf
     gitAndTools.gitFull
