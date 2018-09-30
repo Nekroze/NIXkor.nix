@@ -76,6 +76,7 @@ in {
     gnupg
     fzf
     gitAndTools.gitFull
+    (import ./vim.nix)
   ]
   ++ optional config.virtualisation.docker.enable docker_compose
   ++ aliasDeps;
