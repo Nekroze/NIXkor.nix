@@ -21,7 +21,7 @@ let
   ];
 
 in {
-  users.defaultUserShell = mkDefault pkgs.zsh;
+  users.defaultUserShell = mkForce pkgs.zsh;
 
   programs.zsh = {
     enable = mkDefault true;
