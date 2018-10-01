@@ -9,6 +9,9 @@ in{
   services.unclutter.enable = mkForce false;
   services.xbanish.enable = mkForce true;
   fonts.fonts = [ pkgs.fira-code ];
+  environment.systemPackages = with pkgs; [
+    firefox
+  ];
 
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
