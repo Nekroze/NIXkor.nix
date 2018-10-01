@@ -15,18 +15,18 @@ in{
 
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
-    package = pkgs.i3-gaps;
+    package = if desktop then pkgs.i3-gaps else pkgs.i3;
     extraPackages = with pkgs; [
       kitty
       rofi
       xcape
       dunst
       xorg.xsetroot
-      compton
       i3status
       i3lock-fancy
       scrot
     ]
+    ++ optional (config.services.xserver.windowManager.i3.package == pkgs.i3-gaps) compton
     ++ optional laptop xorg.xbacklight
     ++ optional config.hardware.pulseaudio.enable pulseaudioLight;
 
@@ -90,6 +90,8 @@ in{
       bindsym $mod+r mode "resize"
       bar {
         status_command i3status
+        ${optionalString laptop "mode hide"}
+        modifier Mod4
         colors {
           separator #dc322f
           background #073642
@@ -110,6 +112,7 @@ in{
       gaps outer 0
       smart_gaps on
       smart_borders on
+      exec compton -bc -o 0.5 -r 3 -l 2 -t 2 --shadow-exclude '_GTK_FRAME_EXTENTS@:c' --shadow-exclude 'class_g = "i3-frame"' --xinerama-shadow-crop
       ''}
       ${optionalString config.hardware.pulseaudio.enable ''
       bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10%
@@ -125,7 +128,6 @@ in{
       exec --no-startup-id xsetroot -solid "#002b36"
       exec --no-startup-id dunst -config /etc/dunstrc
       exec --no-startup-id xcape
-      exec compton -bc -o 0.5 -r 3 -l 2 -t 2 --shadow-exclude '_GTK_FRAME_EXTENTS@:c' --shadow-exclude 'class_g = "i3-frame"' --xinerama-shadow-crop
     '';
   };
 
