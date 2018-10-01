@@ -15,7 +15,7 @@ let
       owner = "altercation";
       repo = "vim-colors-solarized";
       rev = "528a59f26d12278698bb946f8fb82a63711eec21";
-      sha256 = "10l01a8xaivz6n01x6hzfx7gd0igd0wcf9ril0sllqzbq7yx2bbk";
+      sha256 = "05d3lmd1shyagvr3jygqghxd3k8a4vp32723fvxdm57fdrlyzcm1";
     };
   };
 in vim_configurable.customize {
