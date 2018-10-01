@@ -104,7 +104,7 @@ in{
       }
       client.focused #859900 #859900 #fdf6e3 #859900
       client.focused_inactive #859900 #073642 #eee8d5 #6c71c4
-      client.unfocused #586e75 #002b36 #93a1a1 #586e75
+      client.unfocused #586e75 #073642 #93a1a1 #586e75
       client.urgent #dc322f #dc322f #fdf6e3 #dc322f
       for_window [class="^.*"] border pixel 1
       ${optionalString (config.services.xserver.windowManager.i3.package == pkgs.i3-gaps) ''
