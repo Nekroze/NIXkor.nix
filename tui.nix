@@ -9,15 +9,18 @@ let
     ls = "exa";
     lt = "exa -lT --git --header";
     lx = "exa -bghHliS --git";
-    vim = "vim";
-    vi = "vim";
-    v = "vim";
+    vim = "nvim";
+    vi = "nvim";
+    v = "nvim";
     man = "tldr";
   };
   aliasDeps = with pkgs; [
     exa
     tldr
   ];
+
+    users = (attrValues config.users.users);
+    defaultUser = findSingle (u: u.isNormalUser) "nekroze" "nekroze" users;
 
 in {
   #users.defaultUserShell = mkForce pkgs.zsh;
@@ -41,7 +44,11 @@ in {
       ${concatMapStringsSep "\n" (p: "fundle plugin '${p}'") plugins}
       fundle init
 
+      set -g default_user ${defaultUser.name}
+      set -g theme_powerline_fonts yes
+      set -g theme_nerd_fonts no
       set -g theme_color_scheme solarized-dark
+      set -g theme_display_date yes
     '';
   };
 
@@ -98,7 +105,6 @@ in {
     gnupg
     fzf
     gitAndTools.gitFull
-    (import ./vim.nix)
   ]
   ++ optional config.virtualisation.docker.enable docker_compose
   ++ aliasDeps;

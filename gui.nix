@@ -4,7 +4,7 @@ with lib;
 
 let
   laptop = !desktop;
-  fontSize = if desktop then "12" else "10";
+  fontSize = if desktop then "10" else "10";
 in{
   services.unclutter.enable = mkForce false;
   services.xbanish.enable = mkForce true;
@@ -108,7 +108,7 @@ in{
       client.urgent #dc322f #dc322f #fdf6e3 #dc322f
       for_window [class="^.*"] border pixel 1
       ${optionalString (config.services.xserver.windowManager.i3.package == pkgs.i3-gaps) ''
-      gaps inner ${if laptop then "10" else "20"}
+      gaps inner 15
       gaps outer 0
       smart_gaps on
       smart_borders on
@@ -190,7 +190,7 @@ in{
     rofi.color-enabled:     true
     rofi.theme:             solarized
     rofi.location:          0
-    rofi.font:              Fira Code 10
+    rofi.font:              Fira Code ${fontSize}
     rofi.terminal:          kitty --config /etc/kitty.conf
     rofi.case-sensitive:    false
     rofi.scroll-method:     1
@@ -201,7 +201,7 @@ in{
 
   environment.etc."dunstrc".text = ''
     [global]
-      font                 = Source Code Pro 10
+      font                 = Fira Code ${fontSize}
       allow_markup         = yes
       plain_text           = no
       format               = "%s\n%b"
@@ -252,9 +252,8 @@ in{
   '';
 
   environment.etc."kitty.conf".text = ''
-    shell                 zsh
     font_family           Fira Code
-    font_size             11.0
+    font_size             ${fontSize}.0
     cursor                #586e75
     cursor_shape          block
     url_color             #2aa198
@@ -262,7 +261,7 @@ in{
     active_border_color   #859900
     inactive_border_color #586e75
     foreground            #839496
-    background            #073642
+    background            #002b36
     selection_foreground  #657b83
     selection_background  #fdf6e3
     color0                #002b36
