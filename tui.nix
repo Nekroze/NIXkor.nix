@@ -9,19 +9,41 @@ let
     ls = "exa";
     lt = "exa -lT --git --header";
     lx = "exa -bghHliS --git";
-    vim = "nvim";
-    vi = "nvim";
-    v = "nvim";
+    vim = "vim";
+    vi = "vim";
+    v = "vim";
     man = "tldr";
   };
   aliasDeps = with pkgs; [
     exa
-    neovim
     tldr
   ];
 
 in {
-  users.defaultUserShell = mkForce pkgs.zsh;
+  #users.defaultUserShell = mkForce pkgs.zsh;
+  users.defaultUserShell = mkForce pkgs.fish;
+
+  programs.fish = let
+    plugins = [
+      "edc/bass"
+      "tuvistavie/fish-fastdir"
+      "oh-my-fish/theme-bobthefish"
+      "laughedelic/pisces"
+    ];
+  in {
+    enable = true;
+    shellAliases = aliases;
+    interactiveShellInit = ''
+      source ${pkgs.autojump}/share/autojump/autojump.fish
+      fish_vi_key_bindings
+
+      if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
+      ${concatMapStringsSep "\n" (p: "fundle plugin '${p}'") plugins}
+      fundle init
+
+      set -g theme_color_scheme solarized-dark
+    '';
+  };
 
   programs.zsh = {
     enable = mkDefault true;
