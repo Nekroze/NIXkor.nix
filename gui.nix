@@ -90,6 +90,7 @@ in{
       bindsym $mod+r mode "resize"
       bar {
         status_command i3status
+        position top
         ${optionalString laptop "mode hide"}
         modifier Mod4
         colors {
