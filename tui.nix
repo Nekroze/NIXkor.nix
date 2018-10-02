@@ -31,7 +31,6 @@ in {
       "tuvistavie/fish-fastdir"
       "oh-my-fish/theme-bobthefish"
       "laughedelic/pisces"
-      "fisherman/done"
       "oh-my-fish/plugin-thefuck"
       "oh-my-fish/plugin-bang-bang"
       "oh-my-fish/plugin-vi-mode"
