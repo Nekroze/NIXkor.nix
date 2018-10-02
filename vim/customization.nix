@@ -15,8 +15,8 @@ in
     pluginDictionaries = [
       # from pkgs.vimPlugins
       { names = [
-        "LnL7/vim-nix"
-        "Chiel92/vim-autoformat"
+        "vim-nix"
+        "vim-autoformat"
         "fugitive"
         "syntastic"
         "gitgutter"
@@ -28,11 +28,11 @@ in
         "vim-go"
         "vim-better-whitespace"
         "Solarized"
-        "sheerun/vim-polyglot
-        "godlygeek/tabular"
-        "tpope/vim-sensible"
-        "nathanaelkane/vim-indent-guides"
-        "martinda/Jenkinsfile-vim-syntax"
+        "vim-polyglot"
+        "tabular"
+        "sensible"
+        "vim-indent-guides"
+        "Jenkinsfile-vim-syntax"
         #"chrisbra/Colorizer"
         #"myusuf3/numbers.vim"
         #"buoto/gotests-vim"
