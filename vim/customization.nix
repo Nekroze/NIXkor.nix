@@ -33,6 +33,13 @@ in
         "tpope/vim-sensible"
         "nathanaelkane/vim-indent-guides"
         "martinda/Jenkinsfile-vim-syntax"
+        #"chrisbra/Colorizer"
+        #"myusuf3/numbers.vim"
+        #"buoto/gotests-vim"
+        #"prabirshrestha/asyncomplete.vim"
+        #"prabirshrestha/async.vim"
+        #"prabirshrestha/vim-lsp"
+        #"prabirshrestha/asyncomplete-lsp.vim"
       ]; }
     ];
   };
