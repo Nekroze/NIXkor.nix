@@ -31,7 +31,6 @@ in {
       "tuvistavie/fish-fastdir"
       "oh-my-fish/theme-bobthefish"
       "laughedelic/pisces"
-      "oh-my-fish/plugin-thefuck"
       "oh-my-fish/plugin-bang-bang"
       "oh-my-fish/plugin-vi-mode"
       "oh-my-fish/plugin-direnv"
@@ -62,7 +61,6 @@ in {
     fzf
     direnv
     gitAndTools.gitFull
-    thefuck
   ]
   ++ optional config.virtualisation.docker.enable docker_compose
   ++ aliasDeps;
