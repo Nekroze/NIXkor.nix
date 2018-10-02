@@ -1,4 +1,5 @@
-{ pkgs, ...}:
+{ pkgs, lib, ...}:
+with lib;
 let
   neovimPackages = import ./neovimPackages.nix pkgs;
 in {
