@@ -1,4 +1,4 @@
-{ pkgs, fetchFromGitHub}:
+{ pkgs, fetchFromGitHub }:
 
 let
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;

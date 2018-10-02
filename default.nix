@@ -7,7 +7,7 @@ let
 in {
   imports = [
     ./tui.nix
-    #./vim/neovim.nix
+    ./vim/neovim.nix
     (gui {
       desktop=desktop;
     })

@@ -9,8 +9,8 @@ set expandtab tabstop=4 shiftwidth=4
 
 set t_Co=256
 set background=dark
-set termguicolors
-colorscheme NeoSolarized
+colorscheme solarized
+hi Normal guibg=NONE ctermbg=NONE
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
@@ -67,4 +67,25 @@ set splitright
 set clipboard+=unnamedplus
 
 highlight TermCursor ctermfg=red guifg=red
+
+" make FZF work like CTRL+p
+nnoremap <c-p> :FZF<cr>
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 ''

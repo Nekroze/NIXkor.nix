@@ -15,18 +15,24 @@ in
     pluginDictionaries = [
       # from pkgs.vimPlugins
       { names = [
+        "LnL7/vim-nix"
+        "Chiel92/vim-autoformat"
         "fugitive"
-          "youcompleteme"
-          "syntastic"
-          "gitgutter"
-          "sensible"
-          "vim-airline"
-          "vim-airline-themes"
-          "fzf-vim"
-          "fzfWrapper"
-          "vim-go"
-          "vim-better-whitespace"
-          "NeoSolarized"
+        "syntastic"
+        "gitgutter"
+        "sensible"
+        "vim-airline"
+        "vim-airline-themes"
+        "fzf-vim"
+        "fzfWrapper"
+        "vim-go"
+        "vim-better-whitespace"
+        "Solarized"
+        "sheerun/vim-polyglot
+        "godlygeek/tabular"
+        "tpope/vim-sensible"
+        "nathanaelkane/vim-indent-guides"
+        "martinda/Jenkinsfile-vim-syntax"
       ]; }
     ];
   };
