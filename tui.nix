@@ -51,6 +51,7 @@ in {
       set -g theme_nerd_fonts no
       set -g theme_color_scheme solarized-dark
       set -g theme_display_date yes
+      set -g theme_date_format "+%H:%M:%S %Z"
     '';
   };
 
