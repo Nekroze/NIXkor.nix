@@ -1,6 +1,52 @@
-{ stdenv, writeText }:
+{ stdenv, writeText, lib }:
+with lib;
 
-''
+let
+  plugins = [
+    "sheerun/vim-polyglot"
+    "icymind/NeoSolarized"
+    "chrisbra/Colorizer"
+    "RRethy/vim-illuminate"
+    "godlygeek/tabular"
+    "tpope/vim-fugitive"
+    "airblade/vim-gitgutter"
+    "tpope/vim-sensible"
+    "myusuf3/numbers.vim"
+    "Yggdroot/indentLine"
+    "vim-airline/vim-airline"
+    "vim-airline/vim-airline-themes"
+    "vim-syntastic/syntastic"
+    "fatih/vim-go"
+    "buoto/gotests-vim"
+    "townk/vim-autoclose"
+    "prabirshrestha/asyncomplete.vim"
+    "prabirshrestha/async.vim"
+    "prabirshrestha/vim-lsp"
+    "prabirshrestha/asyncomplete-lsp.vim"
+    "junegunn/fzf.vim"
+    "LnL7/vim-nix"
+  ];
+in ''
+set nocompatible
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" Automatically install missing plugins on startup
+if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall | q
+endif
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+${concatMapStringsSep "\n" (n: "Plug '${n}'") plugins}
+
+call plug#end()
+
 syntax enable
 let g:is_posix=1
 set number
@@ -9,7 +55,8 @@ set expandtab tabstop=4 shiftwidth=4
 
 set t_Co=256
 set background=dark
-colorscheme solarized
+set termguicolors
+colorscheme NeoSolarized
 hi Normal guibg=NONE ctermbg=NONE
 
 let g:airline#extensions#tabline#enabled = 1
@@ -88,4 +135,39 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_remove_duplicates = 1
+
+" When dapper is available use the LSP servers dapper provides
+if executable('dapper')
+	au user lsp_setup call lsp#register_server({
+				\ 'name': 'bash',
+				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-bash']},
+				\ 'whitelist': ['sh'],
+				\ })
+	au user lsp_setup call lsp#register_server({
+				\ 'name': 'php',
+				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-php']},
+				\ 'whitelist': ['php'],
+				\ })
+	au user lsp_setup call lsp#register_server({
+				\ 'name': 'dockerfile',
+				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-dockerfile']},
+				\ 'whitelist': ['dockerfile'],
+				\ })
+	au user lsp_setup call lsp#register_server({
+				\ 'name': 'dart',
+				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-dart']},
+				\ 'whitelist': ['dart'],
+				\ })
+endif
+
+let g:go_version_warning = 0
 ''

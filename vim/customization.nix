@@ -9,38 +9,4 @@ let
 in
 {
   customRC = vimrc;
-  vam = {
-    knownPlugins = pkgs.vimPlugins // plugins;
-
-    pluginDictionaries = [
-      # from pkgs.vimPlugins
-      { names = [
-        "vim-nix"
-        "vim-autoformat"
-        "fugitive"
-        "syntastic"
-        "gitgutter"
-        "sensible"
-        "vim-airline"
-        "vim-airline-themes"
-        "fzf-vim"
-        "fzfWrapper"
-        "vim-go"
-        "vim-better-whitespace"
-        "Solarized"
-        "vim-polyglot"
-        "tabular"
-        "sensible"
-        "Jenkinsfile-vim-syntax"
-        "IndentLine"
-        "Colorizer"
-        "numbers.vim"
-        "gotests-vim"
-        #"prabirshrestha/asyncomplete.vim"
-        #"prabirshrestha/async.vim"
-        #"prabirshrestha/vim-lsp"
-        #"prabirshrestha/asyncomplete-lsp.vim"
-      ]; }
-    ];
-  };
 }
