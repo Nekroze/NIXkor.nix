@@ -4,18 +4,18 @@ let
   pkgInstalled = pkg: (count (x: x == pkg) config.environment.systemPackages) == 1;
 
   aliases = {
-    la = "exa -la --git -header";
-    ll = "exa -l --git --header";
-    ls = "exa";
-    lt = "exa -lT --git --header";
-    lx = "exa -bghHliS --git";
+    #la = "exa -la --git -header";
+    #ll = "exa -l --git --header";
+    #ls = "exa";
+    #lt = "exa -lT --git --header";
+    #lx = "exa -bghHliS --git";
     vim = "nvim";
     vi = "nvim";
     v = "nvim";
     man = "tldr";
   };
   aliasDeps = with pkgs; [
-    exa
+    #exa
     tldr
   ];
 
