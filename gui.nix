@@ -98,7 +98,7 @@ in{
         modifier Mod4
         colors {
           separator #dc322f
-          background #073642
+          background #002b36
           statusline #268bd2
           focused_workspace #fdf6e3 #859900 #fdf6e3
           active_workspace #fdf6e3 #6c71c4 #fdf6e3
@@ -135,63 +135,72 @@ in{
     '';
   };
 
-  environment.etc."i3status-rs.toml".text = ''
+  environment.etc."i3status-rs.toml".text = let
+    interval = if desktop then "1" else "10";
+  in ''
     theme = "solarized-dark"
     icons = "awesome"
 
     [[block]]
-    block = "focused_window"
-
-    [[block]]
     block = "sound"
+    on_click = "${pkgs.pavucontrol}/bin/pavucontrol"
 
     [[block]]
-    block = "speedtest"
-    bytes = true
+    block = "music"
+    player = "spotify"
+    buttons = ["play", "next"]
 
     [[block]]
     block = "net"
     device = "${if desktop then "enp2s0" else "wlp1s0"}"
     ssid = ${if desktop then "false" else "true"}
+    speed_up = false
+    speed_down = false
+    graph_up = false
+    graph_down = false
     ip = true
-    interval = 10
-
-    [[block]]
-    block = "disk_space"
-    path = "/"
-    alias = "/"
-    info_type = "available"
-    unit = "GB"
-    interval = 20
-    warning = 20.0
-    alert = 10.0
+    interval = ${interval}
 
     [[block]]
     block = "memory"
     display_type = "memory"
     format_mem = "{Mup}%"
     format_swap = "{SUp}%"
+    warning_mem = 50
+    critical_mem = 80
+    warning_swap = 50
+    critical_swap = 80
+    clickable = false
+    interval = ${interval}
 
     [[block]]
-    block = "cpu"
-    interval = 10
+    block = "memory"
+    display_type = "swap"
+    format_mem = "{Mup}%"
+    format_swap = "{SUp}%"
+    warning_mem = 50
+    critical_mem = 80
+    warning_swap = 50
+    critical_swap = 80
+    clickable = false
+    interval = ${interval}
 
     [[block]]
     block = "load"
-    interval = 10
+    interval = ${interval}
     format = "{1m}"
 
     ${optionalString laptop ''
     [[block]]
     block = "battery"
-    interval = 10
+    interval = ${interval}
     device = "BAT"
     ''}
 
     [[block]]
     block = "time"
     interval = 60
-    format = "%a %d/%m %R"
+    format = "%a %d/%m %R %Z"
   '';
 
   environment.etc."X11/Xresources".text = ''
