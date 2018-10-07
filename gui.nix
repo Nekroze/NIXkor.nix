@@ -8,7 +8,10 @@ let
 in{
   services.unclutter.enable = mkForce false;
   services.xbanish.enable = mkForce true;
-  fonts.fonts = [ pkgs.fira-code ];
+  fonts.fonts = with pkgs; [
+    fira-code
+    font-awesome_4
+  ];
   environment.systemPackages = with pkgs; [
     firefox
   ];
@@ -22,7 +25,7 @@ in{
       xcape
       dunst
       xorg.xsetroot
-      i3status
+      i3status-rust
       i3lock-fancy
       scrot
     ]
@@ -32,7 +35,7 @@ in{
 
     configFile = pkgs.writeText "i3.config" ''
       set $mod Mod4
-      font pango:Fira Code ${fontSize}
+      font pango:Fira Code ${fontSize}, FontAwesome ${fontSize}
       focus_follows_mouse no
       floating_modifier $mod
       bindsym $mod+Return exec kitty --config /etc/kitty.conf
@@ -89,7 +92,7 @@ in{
       }
       bindsym $mod+r mode "resize"
       bar {
-        status_command i3status
+        status_command i3status-rs /etc/i3status-rs.toml
         position top
         ${optionalString laptop "mode hide"}
         modifier Mod4
@@ -132,59 +135,63 @@ in{
     '';
   };
 
-  environment.etc."i3status.conf".text = ''
-    general {
-      colors = true
-      interval = 5
-    }
-    order += "volume master"
-    order += "cpu_temperature 1"
-    order += "disk /"
-    order += "${if desktop then "ethernet enp2s0" else "wireless wlp1s0"}"
-    order += "load"
-    ${optionalString laptop ''order += "battery 0"''}
-    order += "tztime local"
-    order += "tztime local_date"
-    ethernet enp2s0 {
-      format_up = "E: %ip"
-      format_down = "E: down"
-    }
-    tztime local_date {
-      format = "%Y-%m-%d"
-    }
-    tztime local {
-      format = "%H:%M"
-    }
-    load {
-      format = "L: %1min"
-    }
-    disk "/" {
-      format = "%free"
-    }
-    volume master {
-      format = "♪: %volume"
-      device = "default"
-      mixer = "Master"
-      mixer_idx = 0
-    }
-    cpu_temperature 1 {
-      format = "T: %degrees °C"
-      path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
-    }
-    battery 0 {
-      format = "%status %percentage %remaining %emptytime"
-      format_down = "No battery"
-      status_chr = "CHR"
-      status_bat = "BAT"
-      status_unk = "? UNK"
-      status_full = "☻ FULL"
-      path = "/sys/class/power_supply/BAT/uevent"
-      low_threshold = 10
-    }
-    wireless wlp1s0 {
-      format_up = "W: (%quality at %essid, %bitrate) %ip"
-      format_down = "W: down"
-    }
+  environment.etc."i3status-rs.toml".text = ''
+    theme = "solarized-dark"
+    icons = "awesome"
+
+    [[block]]
+    block = "focused_window"
+
+    [[block]]
+    block = "sound"
+
+    [[block]]
+    block = "speedtest"
+    bytes = true
+
+    [[block]]
+    block = "net"
+    device = "${if desktop then "enp2s0" else "wlp1s0"}"
+    ssid = ${if desktop then "false" else "true"}
+    ip = true
+    interval = 10
+
+    [[block]]
+    block = "disk_space"
+    path = "/"
+    alias = "/"
+    info_type = "available"
+    unit = "GB"
+    interval = 20
+    warning = 20.0
+    alert = 10.0
+
+    [[block]]
+    block = "memory"
+    display_type = "memory"
+    format_mem = "{Mup}%"
+    format_swap = "{SUp}%"
+
+    [[block]]
+    block = "cpu"
+    interval = 10
+
+    [[block]]
+    block = "load"
+    interval = 10
+    format = "{1m}"
+
+    ${optionalString laptop ''
+    [[block]]
+    block = "battery"
+    interval = 10
+    device = "BAT"
+    ''}
+
+    [[block]]
+    block = "time"
+    interval = 60
+    format = "%a %d/%m %R"
   '';
 
   environment.etc."X11/Xresources".text = ''
