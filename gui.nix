@@ -5,6 +5,10 @@ with lib;
 let
   laptop = !desktop;
   fontSize = if desktop then "10" else "10";
+  wallpaper = pkgs.fetchurl {
+    url = "https://linux.pictures/content/1-projects/200-solarized-dark-wallpaper/solarized-wallpaper-vim.png";
+    sha256 = "1f894rb2kx07g5jnn9c2g4rzrvbv24pns8y5fhf4q4fqydh168da";
+  };
 in{
   services.unclutter.enable = mkForce false;
   services.xbanish.enable = mkForce true;
@@ -24,7 +28,7 @@ in{
       rofi
       xcape
       dunst
-      xorg.xsetroot
+      feh
       i3status-rust
       i3lock-fancy
       scrot
@@ -129,7 +133,7 @@ in{
       bindsym XF86MonBrightnessUp exec xbacklight -inc 10
       bindsym XF86MonBrightnessDown exec xbacklight -dec 10
       ''}
-      exec --no-startup-id xsetroot -solid "#002b36"
+      exec --no-startup-id feh --bg-scale ${wallpaper}
       exec --no-startup-id dunst -config /etc/dunstrc
       exec --no-startup-id xcape
     '';
