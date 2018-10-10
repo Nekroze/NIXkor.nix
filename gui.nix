@@ -18,7 +18,10 @@ in{
   ];
   environment.systemPackages = with pkgs; [
     firefox
+    libsForQt5.qtstyleplugins
+    qt5ct
   ];
+  environment.variables.QT_QPA_PLATFORMTHEME = mkDefault "qt5ct";
 
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
