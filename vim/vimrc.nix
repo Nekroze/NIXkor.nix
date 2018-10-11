@@ -26,6 +26,7 @@ let
     "vim-airline/vim-airline-themes"
     "vim-syntastic/syntastic"
     "Yggdroot/indentLine"
+    "sirtaj/vim-openscad"
   ];
 in ''
 set nocompatible
