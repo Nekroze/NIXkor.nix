@@ -13,6 +13,7 @@ let
     vi = "nvim";
     v = "nvim";
     man = "tldr";
+    nix-shell = "nix-shell --command fish";
   };
   aliasDeps = with pkgs; [
     #exa
