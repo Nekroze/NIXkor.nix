@@ -31,7 +31,6 @@ in {
       "edc/bass"
       "tuvistavie/fish-fastdir"
       "oh-my-fish/theme-bobthefish"
-      "laughedelic/pisces"
       "oh-my-fish/plugin-bang-bang"
       "oh-my-fish/plugin-vi-mode"
       "oh-my-fish/plugin-direnv"
