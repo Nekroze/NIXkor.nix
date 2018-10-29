@@ -20,7 +20,10 @@ in{
     firefox
     libsForQt5.qtstyleplugins
     qt5ct
-  ];
+  ] ++ optionals laptop [
+    networkmanagerapplet
+    hicolor-icon-theme
+  ] ;
   environment.variables.QT_QPA_PLATFORMTHEME = mkDefault "qt5ct";
 
   services.xserver.windowManager.i3 = {
@@ -135,6 +138,7 @@ in{
       ${optionalString laptop ''
       bindsym XF86MonBrightnessUp exec xbacklight -inc 10
       bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+      exec --no-startup-id nm-applet
       ''}
       exec --no-startup-id feh --bg-scale ${wallpaper}
       exec --no-startup-id dunst -config /etc/dunstrc
