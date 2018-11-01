@@ -28,7 +28,7 @@ in{
 
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
-    package = pkgs.i3-gaps;
+    package = if desktop then pkgs.i3-gaps else pkgs.i3;
     extraPackages = with pkgs; [
       kitty
       rofi
@@ -104,6 +104,7 @@ in{
       bar {
         status_command i3status-rs /etc/i3status-rs.toml
         position top
+        ${optionalString laptop "mode hide"}
         modifier Mod4
         colors {
           separator #dc322f
