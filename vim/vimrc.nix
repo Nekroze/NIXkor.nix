@@ -6,6 +6,7 @@ let
     "airblade/vim-gitgutter"
     "buoto/gotests-vim"
     "chrisbra/Colorizer"
+    "ConradIrwin/vim-bracketed-paste"
     "fatih/vim-go"
     "godlygeek/tabular"
     "icymind/NeoSolarized"
@@ -18,6 +19,7 @@ let
     "prabirshrestha/vim-lsp"
     "RRethy/vim-illuminate"
     "sheerun/vim-polyglot"
+    "sirtaj/vim-openscad"
     "townk/vim-autoclose"
     "tpope/vim-fugitive"
     "tpope/vim-sensible"
@@ -26,7 +28,6 @@ let
     "vim-airline/vim-airline-themes"
     "vim-syntastic/syntastic"
     "Yggdroot/indentLine"
-    "sirtaj/vim-openscad"
   ];
 in ''
 set nocompatible
