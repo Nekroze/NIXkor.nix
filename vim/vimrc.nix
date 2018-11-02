@@ -18,7 +18,6 @@ let
     "prabirshrestha/async.vim"
     "prabirshrestha/vim-lsp"
     "RRethy/vim-illuminate"
-    "sheerun/vim-polyglot"
     "sirtaj/vim-openscad"
     "townk/vim-autoclose"
     "tpope/vim-fugitive"
