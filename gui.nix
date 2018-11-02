@@ -283,6 +283,8 @@ in{
   '';
 
   environment.etc."kitty.conf".text = ''
+    scrollback_pager      nvim -R
+    sync_to_monitor       yes
     font_family           Fira Code
     font_size             ${fontSize}.0
     cursor                #586e75
