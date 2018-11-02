@@ -20,11 +20,14 @@ in{
     firefox
     libsForQt5.qtstyleplugins
     qt5ct
-  ] ++ optionals laptop [
-    networkmanagerapplet
+  ] ++ optionals config.networking.networkmanager.enable [
     hicolor-icon-theme
-  ] ;
+    networkmanagerapplet
+  ];
   environment.variables.QT_QPA_PLATFORMTHEME = mkDefault "qt5ct";
+  networking.networkmanager.unmanaged = optionals config.virtualisation.docker.enable [
+    "interface-name:veth*" "interface-name:br-*" "interface-name:virbr*"
+  ];
 
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
