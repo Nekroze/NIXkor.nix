@@ -285,6 +285,8 @@ in{
   environment.etc."kitty.conf".text = ''
     scrollback_pager      nvim -R
     sync_to_monitor       yes
+    enable_audio_bell     no
+    window_alert_on_bell  yes
     font_family           Fira Code
     font_size             ${fontSize}.0
     cursor                #586e75
