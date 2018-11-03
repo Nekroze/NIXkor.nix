@@ -13,6 +13,7 @@ let
     "junegunn/fzf.vim"
     "LnL7/vim-nix"
     "myusuf3/numbers.vim"
+    "vim-scripts/AnsiEsc.vim"
     "prabirshrestha/asyncomplete-lsp.vim"
     "prabirshrestha/asyncomplete.vim"
     "prabirshrestha/async.vim"
