@@ -173,5 +173,9 @@ if executable('dapper')
 endif
 
 let g:go_version_warning = 0
-let g:go_fmt_command = "goimorts"
+let g:go_fmt_command = "goimports"
+
+if filereadable(expand("$HOME/.vimrc.local"))
+  source ~/.vimrc.local
+endif
 ''
