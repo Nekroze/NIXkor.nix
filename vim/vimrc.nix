@@ -23,7 +23,7 @@ let
     "townk/vim-autoclose"
     "tpope/vim-fugitive"
     "tpope/vim-sensible"
-    "tpope/vim-sleuth"
+    "vim-scripts/DetectIndent"
     "vim-airline/vim-airline"
     "vim-airline/vim-airline-themes"
     "vim-syntastic/syntastic"
@@ -178,4 +178,7 @@ let g:go_fmt_command = "goimports"
 if filereadable(expand("$HOME/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+let g:detectindent_preferred_expandtab = 1
+autocmd BufReadPost * :DetectIndent
 ''
