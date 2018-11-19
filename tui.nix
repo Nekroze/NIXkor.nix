@@ -62,6 +62,8 @@ in {
     fzf
     direnv
     gitAndTools.gitFull
+    ripgrep
+    entr
   ]
   ++ optional config.virtualisation.docker.enable docker_compose
   ++ aliasDeps;
