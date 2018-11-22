@@ -180,5 +180,4 @@ if filereadable(expand("$HOME/.vimrc.local"))
 endif
 
 let g:detectindent_preferred_expandtab = 1
-autocmd BufReadPost * :DetectIndent
 ''
