@@ -56,6 +56,8 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    ranger
+    highlight
     mosh
     libnotify
     gnupg
