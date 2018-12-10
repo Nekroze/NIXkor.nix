@@ -3,6 +3,7 @@ with lib;
 
 let
   plugins = [
+    "luochen1990/rainbow"
     "airblade/vim-gitgutter"
     "buoto/gotests-vim"
     "chrisbra/Colorizer"
@@ -13,7 +14,6 @@ let
     "junegunn/fzf.vim"
     "LnL7/vim-nix"
     "myusuf3/numbers.vim"
-    "vim-scripts/AnsiEsc.vim"
     "prabirshrestha/asyncomplete-lsp.vim"
     "prabirshrestha/asyncomplete.vim"
     "prabirshrestha/async.vim"
@@ -23,10 +23,12 @@ let
     "townk/vim-autoclose"
     "tpope/vim-fugitive"
     "tpope/vim-sensible"
-    "vim-scripts/DetectIndent"
     "vim-airline/vim-airline"
     "vim-airline/vim-airline-themes"
+    "vim-scripts/AnsiEsc.vim"
+    "vim-scripts/DetectIndent"
     "vim-syntastic/syntastic"
+    "wlangstroth/vim-racket"
     "Yggdroot/indentLine"
   ];
 in ''
