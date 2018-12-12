@@ -182,4 +182,6 @@ if filereadable(expand("$HOME/.vimrc.local"))
 endif
 
 let g:detectindent_preferred_expandtab = 1
+
+let g:rainbow_active = 0
 ''
