@@ -31,7 +31,7 @@ in{
 
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
-    package = if desktop then pkgs.i3-gaps else pkgs.i3;
+    package = pkgs.i3-gaps;
     extraPackages = with pkgs; [
       kitty
       rofi
@@ -93,7 +93,7 @@ in{
       bindsym $mod+Shift+9 move container to workspace 9
       bindsym $mod+Shift+0 move container to workspace 10
       bindsym $mod+Shift+r restart
-      bindsym $mod+Pause exec i3lock-fancy -pf "Fira-Code-Regular" -t "Go Away!" -- scrot -z
+      bindsym $mod+Pause exec i3lock-fancy -pf "Fira-Code-Regular" -t "" -- scrot -z
       bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'pkill ssh-agent gpg-agent; i3-msg exit'"
       mode "resize" {
               bindsym h resize shrink width 10 px or 10 ppt
@@ -107,7 +107,6 @@ in{
       bar {
         status_command i3status-rs /etc/i3status-rs.toml
         position top
-        ${optionalString laptop "mode hide"}
         modifier Mod4
         colors {
           separator #dc322f
@@ -150,7 +149,7 @@ in{
   };
 
   environment.etc."i3status-rs.toml".text = let
-    interval = if desktop then "1" else "10";
+    interval = if desktop then "1" else "5";
   in ''
     theme = "solarized-dark"
     icons = "awesome"
@@ -163,17 +162,6 @@ in{
     block = "music"
     player = "spotify"
     buttons = ["play", "next"]
-
-    [[block]]
-    block = "net"
-    device = "${if desktop then "enp2s0" else "wlp1s0"}"
-    ssid = ${if desktop then "false" else "true"}
-    speed_up = false
-    speed_down = false
-    graph_up = false
-    graph_down = false
-    ip = true
-    interval = ${interval}
 
     [[block]]
     block = "memory"
