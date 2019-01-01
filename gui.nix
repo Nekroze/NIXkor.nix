@@ -29,6 +29,21 @@ in{
     "interface-name:veth*" "interface-name:br-*" "interface-name:virbr*"
   ];
 
+  services.compton = mkIf (config.services.xserver.windowManager.i3.package == pkgs.i3-gaps) {
+    enable = true;
+    shadow = true;
+    shadowOpacity = "0.5";
+    shadowOffsets = [ 2 2 ];
+    shadowExclude = [
+      "_GTK_FRAME_EXTENTS@:c"
+      "class_g = 'i3-frame'"
+    ];
+    extraOptions = ''
+      shadow-radius = 3;
+      xinerama-shadow-crop = true
+    '';
+  };
+
   services.xserver.windowManager.i3 = {
     enable = mkForce true;
     package = pkgs.i3-gaps;
@@ -128,7 +143,6 @@ in{
       gaps outer 0
       smart_gaps on
       smart_borders on
-      exec compton -bc -o 0.5 -r 3 -l 2 -t 2 --shadow-exclude '_GTK_FRAME_EXTENTS@:c' --shadow-exclude 'class_g = "i3-frame"' --xinerama-shadow-crop
       ''}
       ${optionalString config.hardware.pulseaudio.enable ''
       bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10%
