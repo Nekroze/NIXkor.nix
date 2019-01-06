@@ -108,7 +108,7 @@ in{
       bindsym $mod+Shift+9 move container to workspace 9
       bindsym $mod+Shift+0 move container to workspace 10
       bindsym $mod+Shift+r restart
-      bindsym $mod+Pause exec i3lock-fancy -pf "Fira-Code-Regular" -t "" -- scrot -z
+      bindsym $mod+Pause exec i3lock-fancy -pf "Fira-Code-Regular" -t "Vipassanā" -- scrot -z
       bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'pkill ssh-agent gpg-agent; i3-msg exit'"
       mode "resize" {
               bindsym h resize shrink width 10 px or 10 ppt
