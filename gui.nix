@@ -77,6 +77,10 @@ in{
       bindsym $mod+Shift+j move down
       bindsym $mod+Shift+k move up
       bindsym $mod+Shift+l move right
+      bindsym $mod+Left resize shrink width 10 px or 10 ppt
+      bindsym $mod+Down resize shrink height 10 px or 10 ppt
+      bindsym $mod+Up resize grow height 10 px or 10 ppt
+      bindsym $mod+Right resize grow width 10 px or 10 ppt
       bindsym $mod+v split h
       bindsym $mod+g split v
       bindsym $mod+f fullscreen toggle
@@ -110,15 +114,6 @@ in{
       bindsym $mod+Shift+r restart
       bindsym $mod+Pause exec i3lock-fancy -pf "Fira-Code-Regular" -t "Vipassanā" -- scrot -z
       bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'pkill ssh-agent gpg-agent; i3-msg exit'"
-      mode "resize" {
-              bindsym h resize shrink width 10 px or 10 ppt
-              bindsym k resize grow height 10 px or 10 ppt
-              bindsym j resize shrink height 10 px or 10 ppt
-              bindsym l resize grow width 10 px or 10 ppt
-              bindsym Return mode "default"
-              bindsym Escape mode "default"
-      }
-      bindsym $mod+r mode "resize"
       bar {
         status_command i3status-rs /etc/i3status-rs.toml
         position top
