@@ -59,10 +59,21 @@ set ruler
 set expandtab tabstop=4 shiftwidth=4
 
 set t_Co=256
+
+if has('gui_running')
+	let $theme_color_scheme = terminal-light
+	set guioptions-=m  "remove menu bar
+	set guioptions-=T  "remove toolbar
+	set guioptions-=r  "remove right-hand scroll bar
+	set guioptions-=L  "remove left-hand scroll bar
+	set guifont=Fira\ Code\ 10
+else
+	hi Normal guibg=NONE ctermbg=NONE
+endif
+
 set background=dark
 set termguicolors
 colorscheme NeoSolarized
-hi Normal guibg=NONE ctermbg=NONE
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
