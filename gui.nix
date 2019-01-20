@@ -77,10 +77,10 @@ in{
       bindsym $mod+Shift+j move down
       bindsym $mod+Shift+k move up
       bindsym $mod+Shift+l move right
-      bindsym $mod+Left resize shrink width 10 px or 10 ppt
-      bindsym $mod+Down resize shrink height 10 px or 10 ppt
-      bindsym $mod+Up resize grow height 10 px or 10 ppt
-      bindsym $mod+Right resize grow width 10 px or 10 ppt
+      bindsym $mod+Left resize shrink width 5 px or 5 ppt
+      bindsym $mod+Down resize shrink height 5 px or 5 ppt
+      bindsym $mod+Up resize grow height 5 px or 5 ppt
+      bindsym $mod+Right resize grow width 5 px or 5 ppt
       bindsym $mod+v split h
       bindsym $mod+g split v
       bindsym $mod+f fullscreen toggle
