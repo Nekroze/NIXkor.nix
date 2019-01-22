@@ -11,7 +11,6 @@ let
     #lx = "exa -bghHliS --git";
     vim = "nvim";
     vi = "nvim";
-    v = "nvim";
     man = "tldr";
     nix-shell = "nix-shell --command fish";
   };
