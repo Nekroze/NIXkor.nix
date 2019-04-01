@@ -3,6 +3,7 @@ with lib;
 
 let
   plugins = [
+    "editorconfig/editorconfig-vim"
     "luochen1990/rainbow"
     "airblade/vim-gitgutter"
     "buoto/gotests-vim"
