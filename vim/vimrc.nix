@@ -34,6 +34,7 @@ let
   ];
 in ''
 set nocompatible
+set noswapfile
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -105,13 +106,10 @@ augroup END
 
 let vimDir = '$HOME/.vim'
 let &runtimepath.=','.vimDir
-if has('persistent_undo')
-  let myUndoDir = expand(vimDir . '/undodir')
-  call system('mkdir ' . vimDir)
-  call system('mkdir ' . myUndoDir)
-  let &undodir = myUndoDir
-  set undofile
-endif
+let myUndoDir = expand(vimDir . '/undodir')
+call system('mkdir -p ' . myUndoDir)
+let &undodir = myUndoDir
+set undofile
 
 set foldmethod=indent
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -128,7 +126,7 @@ set splitbelow
 set splitright
 
 " Always use system clipboard
-set clipboard+=unnamedplus
+set clipboard+=unnamed
 
 highlight TermCursor ctermfg=red guifg=red
 

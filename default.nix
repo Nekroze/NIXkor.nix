@@ -1,10 +1,10 @@
-{ desktop ? true, neovim ? true }:
+{ desktop ? false }:
 
 { config, pkgs, lib, ... }:
 with lib;
 let
   gui = import ./gui.nix;
-  editor = if neovim then ./vim/neovim.nix else ./vim/vim.nix;
+  editor = ./vim/vim.nix;
 in {
   imports = [
     ./tui.nix

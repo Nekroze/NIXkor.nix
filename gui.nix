@@ -9,7 +9,7 @@ let
     url = "https://linux.pictures/content/1-projects/200-solarized-dark-wallpaper/solarized-wallpaper-vim.png";
     sha256 = "1f894rb2kx07g5jnn9c2g4rzrvbv24pns8y5fhf4q4fqydh168da";
   };
-in{
+in {
   services.unclutter.enable = mkForce false;
   services.xbanish.enable = mkForce true;
   fonts.fonts = with pkgs; [
@@ -20,6 +20,7 @@ in{
     firefox
     libsForQt5.qtstyleplugins
     qt5ct
+    python3
   ] ++ optionals config.networking.networkmanager.enable [
     hicolor-icon-theme
     networkmanagerapplet
@@ -154,6 +155,7 @@ in{
       exec --no-startup-id feh --bg-scale ${wallpaper}
       exec --no-startup-id dunst -config /etc/dunstrc
       exec --no-startup-id xcape
+      exec --no-startup-id xrdb -merge /etc/X11/Xresources
     '';
   };
 
@@ -172,21 +174,18 @@ in{
     player = "spotify"
     buttons = ["play", "next"]
 
+    ${optionalString laptop ''
     [[block]]
-    block = "memory"
-    display_type = "memory"
-    format_mem = "{Mup}%"
-    format_swap = "{SUp}%"
-    warning_mem = 50
-    critical_mem = 80
-    warning_swap = 50
-    critical_swap = 80
-    clickable = false
+    block = "net"
+    device = "wlp1s0"
+    ssid = true
+    ip = true
     interval = ${interval}
+    ''}
 
     [[block]]
     block = "memory"
-    display_type = "swap"
+    display_type = "memory"
     format_mem = "{Mup}%"
     format_swap = "{SUp}%"
     warning_mem = 50
@@ -280,7 +279,7 @@ in{
   '';
 
   environment.etc."kitty.conf".text = ''
-    scrollback_pager      nvim -R
+    scrollback_pager      vim -R
     sync_to_monitor       yes
     enable_audio_bell     no
     window_alert_on_bell  yes
