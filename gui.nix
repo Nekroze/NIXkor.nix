@@ -4,7 +4,7 @@ with lib;
 
 let
   laptop = !desktop;
-  fontSize = if desktop then "10" else "10";
+  fontSize = if desktop then "9" else "9";
   wallpaper = pkgs.fetchurl {
     url = "https://linux.pictures/content/1-projects/200-solarized-dark-wallpaper/solarized-wallpaper-vim.png";
     sha256 = "1f894rb2kx07g5jnn9c2g4rzrvbv24pns8y5fhf4q4fqydh168da";
