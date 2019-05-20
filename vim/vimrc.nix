@@ -126,7 +126,7 @@ set splitbelow
 set splitright
 
 " Always use system clipboard
-set clipboard+=unnamed
+set clipboard=unnamedplus
 
 highlight TermCursor ctermfg=red guifg=red
 
