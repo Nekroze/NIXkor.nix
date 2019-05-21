@@ -57,6 +57,7 @@ in {
       i3status-rust
       i3lock-fancy
       scrot
+      hsetroot
     ]
     ++ optional (config.services.xserver.windowManager.i3.package == pkgs.i3-gaps) compton
     ++ optional laptop xorg.xbacklight
@@ -152,6 +153,7 @@ in {
       bindsym XF86MonBrightnessDown exec xbacklight -dec 10
       exec --no-startup-id nm-applet
       ''}
+      exec --no-startup-id hsetroot -solid '#073642'
       exec --no-startup-id feh --bg-scale ${wallpaper}
       exec --no-startup-id dunst -config /etc/dunstrc
       exec --no-startup-id xcape
