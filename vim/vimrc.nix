@@ -3,38 +3,40 @@ with lib;
 
 let
   plugins = [
-    "editorconfig/editorconfig-vim"
-    "luochen1990/rainbow"
     "airblade/vim-gitgutter"
+    "b4b4r07/vim-hcl"
     "buoto/gotests-vim"
     "chrisbra/Colorizer"
     "ConradIrwin/vim-bracketed-paste"
+    "dag/vim-fish"
+    "editorconfig/editorconfig-vim"
     "fatih/vim-go"
     "godlygeek/tabular"
-    "icymind/NeoSolarized"
+    "hashivim/vim-terraform"
     "junegunn/fzf.vim"
+    "leafgarland/typescript-vim"
+    "lifepillar/vim-solarized8"
     "LnL7/vim-nix"
+    "luochen1990/rainbow"
+    "machakann/vim-highlightedyank"
     "myusuf3/numbers.vim"
-    "prabirshrestha/asyncomplete-lsp.vim"
-    "prabirshrestha/asyncomplete.vim"
-    "prabirshrestha/async.vim"
-    "prabirshrestha/vim-lsp"
+    "Quramy/tsuquyomi"
+    "Quramy/vim-js-pretty-template"
     "RRethy/vim-illuminate"
+    "rust-lang/rust.vim"
     "sirtaj/vim-openscad"
     "townk/vim-autoclose"
     "tpope/vim-fugitive"
     "tpope/vim-sensible"
     "vim-airline/vim-airline"
     "vim-airline/vim-airline-themes"
-    "vim-scripts/AnsiEsc.vim"
-    "vim-scripts/DetectIndent"
     "vim-syntastic/syntastic"
     "wlangstroth/vim-racket"
     "Yggdroot/indentLine"
+    "z0mbix/vim-shfmt"
   ];
 in ''
 set nocompatible
-set noswapfile
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -75,7 +77,7 @@ endif
 
 set background=dark
 set termguicolors
-colorscheme NeoSolarized
+colorscheme solarized8
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
@@ -104,12 +106,26 @@ augroup filetypedetect
   au! BufRead,BufNewFile Dockerfile.*       setfiletype dockerfile
 augroup END
 
+" View whitespace
+set list
+
 let vimDir = '$HOME/.vim'
+
+" Single swap dir
+set backupdir=$HOME/.vim/swap
+let mySwapDir = expand(vimDir . '/swap')
+call system('mkdir -p ' . mySwapDir)
+
+" Persistent undo
 let &runtimepath.=','.vimDir
-let myUndoDir = expand(vimDir . '/undodir')
-call system('mkdir -p ' . myUndoDir)
-let &undodir = myUndoDir
-set undofile
+if has('persistent_undo')
+  let myUndoDir = expand(vimDir . '/undodir')
+  call system('mkdir -p ' . myUndoDir)
+  let &undodir = myUndoDir
+  set undofile
+endif
+set undolevels=1000
+set undoreload=10000
 
 set foldmethod=indent
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -160,30 +176,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 let g:asyncomplete_remove_duplicates = 1
 
-" When dapper is available use the LSP servers dapper provides
-if executable('dapper')
-	au user lsp_setup call lsp#register_server({
-				\ 'name': 'bash',
-				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-bash']},
-				\ 'whitelist': ['sh'],
-				\ })
-	au user lsp_setup call lsp#register_server({
-				\ 'name': 'php',
-				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-php']},
-				\ 'whitelist': ['php'],
-				\ })
-	au user lsp_setup call lsp#register_server({
-				\ 'name': 'dockerfile',
-				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-dockerfile']},
-				\ 'whitelist': ['dockerfile'],
-				\ })
-	au user lsp_setup call lsp#register_server({
-				\ 'name': 'dart',
-				\ 'cmd': {server_info->[&shell, &shellcmdflag, 'dapper lsp-dart']},
-				\ 'whitelist': ['dart'],
-				\ })
-endif
-
 let g:go_version_warning = 0
 let g:go_fmt_command = "goimports"
 
@@ -194,4 +186,111 @@ endif
 let g:detectindent_preferred_expandtab = 1
 
 let g:rainbow_active = 0
+
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+if &shell =~# 'fish$'
+    set shell=bash
+endif
+
+let g:terraform_fmt_on_save=1
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_remap_spacebar=1
+
+let g:go_fmt_command = "goimports"
+
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+nnoremap <c-p> :FZF<cr>
+
+let g:typescript_compiler_binary = 'tsc'
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+let g:rustfmt_autosave = 1
+
+let g:shfmt_fmt_on_save = 1
+let g:shfmt_extra_args = '-s -bn -ci -sr -kp'
+
+" Consistent indentation
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+" case insensitive search
+set smartcase
+
+" Clean trailing spaces
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+" vv to generate new vertical split
+nnoremap <silent> vv <C-w>v
+
+" Highlight named docker files
+augroup filetypedetect
+  au! BufRead,BufNewFile Dockerfile.*       setfiletype dockerfile
+augroup END
+
+" Spell check markdown and commits
+autocmd FileType gitcommit setlocal spell
+autocmd FileType markdown setlocal spell
+set complete+=kspell
+
+" Ignore some generated files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+" In editor terminal tweaks
+highlight TermCursor ctermfg=red guifg=red
+tnoremap <Leader><ESC> <C-\><C-n>
+
+" Split in expected directions
+set splitbelow
+set splitright
+
+" highlight trailing spaces
+autocmd BufNewFile,BufRead * let b:mtrailingws=matchadd('ErrorMsg', '\s\+$', -1)
+" highlight tabs between spaces
+autocmd BufNewFile,BufRead * let b:mtabbeforesp=matchadd('ErrorMsg', '\v(\t+)\ze( +)', -1)
+autocmd BufNewFile,BufRead * let b:mtabaftersp=matchadd('ErrorMsg', '\v( +)\zs(\t+)', -1)
+" disable matches in help buffers
+autocmd BufEnter,FileType help call clearmatches()
+
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+"set termguicolors
+let g:solarized_use16 = 1
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 ''
