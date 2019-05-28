@@ -223,7 +223,9 @@ in {
     rofi.terminal:          kitty --config /etc/kitty.conf
     rofi.case-sensitive:    false
     rofi.scroll-method:     1
-    rofi.modi:              drun
+    rofi.modi:              combi
+    rofi.show:              combi
+    rofi.combi-modi:        drun,run,ssh,windowcd,keys
     rofi.parse-known-hosts: false
     rofi.matching:          glob
   '';
